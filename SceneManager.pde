@@ -1,14 +1,16 @@
-import java.util.Stack;
-import java.util.HashMap;
-
 class SceneManager {
 
+    private VampireMug main;
     private final HashMap<String, Scene> sceneMap;
     private Stack<Scene> scenes;
 
-    public SceneManager () {
+    SoundFile switchSceneSound;
+
+    public SceneManager (VampireMug main) {
+        this.main = main;
         sceneMap = new HashMap<String, Scene>();
         scenes = new Stack<Scene>();
+        switchSceneSound = new SoundFile(main, "book.mp3");
     }
 
     public void addScene(String identifier, Scene scene){
@@ -17,7 +19,7 @@ class SceneManager {
             scenes.push(scene);
         }
     }
-
+    
     public void addScene(Scene scene){
         addScene(scene.getName(), scene);
     }
@@ -25,6 +27,7 @@ class SceneManager {
     public void goToScene(String sceneName){
         if(sceneMap.containsKey(sceneName)){
             scenes.push(sceneMap.get(sceneName));
+            switchSceneSound.play();
         } else {
             println("Scene not found with name: " + sceneName);
         }

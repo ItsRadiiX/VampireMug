@@ -1,5 +1,7 @@
 class GameObject {
 
+    public VampireMug instance;
+
     private final String identifier;
     protected int x,y,width,height;
 
@@ -34,6 +36,11 @@ class GameObject {
             hoverImage = loadImage(hoverImageFile);
         }
         mouseIsHovering = false;
+    }
+
+    public void setMovie(String movieName){
+        movie = new Movie(instance, movieName);
+        movie.loop();
     }
     
     public void draw() {

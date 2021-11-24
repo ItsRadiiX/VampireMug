@@ -1,4 +1,8 @@
 import processing.sound.*;
+import processing.video.*;
+
+import java.util.Stack;
+import java.util.HashMap;
 
 int width = 1920;
 int height = 1080;
@@ -24,7 +28,7 @@ void draw(){
 
 void setupScenes(){
     inventoryManager = new InventoryManager();
-    sceneManager = new SceneManager();
+    sceneManager = new SceneManager(this);
 
     setupStartScreen();
     setupBedroom();
@@ -36,7 +40,7 @@ void setupStartScreen(){
 
     Scene startScreen = new Scene("startScreen", "img/characters/posterBoy.png");
 
-    MoveToSceneObject startGame = new MoveToSceneObject("startGame", 50, 800, 100, 100, "img/pointers/arrowLeft.png", "kitchen");
+    MoveToSceneObject startGame = new MoveToSceneObject(this,"startGame", 50, 800, 100, 100, "img/pointers/arrowLeft.png", "kitchen");
     startScreen.addHUD(startGame);
 
     sceneManager.addScene(startScreen);
@@ -46,12 +50,16 @@ void setupStartScreen(){
 void setupBedroom(){
     Scene bedroom = new Scene("bedroom", "img/backgrounds/bedroom.png");
 
-    MoveToSceneObject goToLivingRoom = new MoveToSceneObject("goToLivingRoom", 1800, 800, 100, 100, "img/pointers/arrowRight.png", "livingroom");
+    MoveToSceneObject goToLivingRoom = new MoveToSceneObject(this,"goToLivingRoom", 1800, 800, 100, 100, "img/pointers/arrowRight.png", "livingroom");
     bedroom.addHUD(goToLivingRoom);
 
     //GameObject garlic = new GameObject("garlic", 0, 0, 1280, 720, "img/objects/garlic.png");
     //bedroom.addGameObject(garlic);
     
+    //GameObject bat = new GameObject(this, "bat", 500, 500, 1280, 720);
+    //bat.setMovie("bat_flying_transparent.mov");
+    //bedroom.addGameObject(bat);
+
     Dialogue firstDialogue = new Dialogue("1", "Boy", "img/characters/boy.png", "This is a test message to show that dialogues should work, not yet pretty tho");
     Dialogue secondDialogue = new Dialogue("2", "Boy", "img/characters/boy.png", "Second Dialogue, testing if this actually works");
     firstDialogue.setNextDialogue(secondDialogue);
@@ -65,10 +73,10 @@ void setupBedroom(){
 void setupLivingRoom(){
     Scene livingroom = new Scene("livingroom", "img/backgrounds/livingroom.png");
 
-    MoveToSceneObject goToBedroom = new MoveToSceneObject("goToBedroom", 50, 800, 100, 100, "img/pointers/arrowLeft.png", "bedroom");
+    MoveToSceneObject goToBedroom = new MoveToSceneObject(this,"goToBedroom", 50, 800, 100, 100, "img/pointers/arrowLeft.png", "bedroom");
     livingroom.addHUD(goToBedroom);
     
-    MoveToSceneObject goToKitchen = new MoveToSceneObject("goToKitchen", 1800, 800, 100, 100, "img/pointers/arrowRight.png", "kitchen");
+    MoveToSceneObject goToKitchen = new MoveToSceneObject(this,"goToKitchen", 1800, 800, 100, 100, "img/pointers/arrowRight.png", "kitchen");
     livingroom.addHUD(goToKitchen);
 
     livingroom.addDialogue(new Dialogue("1", "Boy", "img/characters/boy.png", "This is a test message to show that dialogues should work, not yet pretty tho"));
@@ -79,7 +87,7 @@ void setupLivingRoom(){
 void setupKitchen(){
     Scene kitchen = new Scene("kitchen", "img/backgrounds/kitchen.png");
 
-    MoveToSceneObject goToLivingRoom = new MoveToSceneObject("goToLivingRoom", 50, 800, 100, 100, "img/pointers/arrowLeft.png", "livingroom");
+    MoveToSceneObject goToLivingRoom = new MoveToSceneObject(this,"goToLivingRoom", 50, 800, 100, 100, "img/pointers/arrowLeft.png", "livingroom");
     kitchen.addHUD(goToLivingRoom);
 
     kitchen.addDialogue(new Dialogue("1", "Boy", "img/characters/boy.png", "This is a test message to show that dialogues should work, not yet pretty tho"));

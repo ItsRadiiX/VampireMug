@@ -30,7 +30,6 @@ class MoveToSceneObject extends GameObject {
       } else {
         try {
           sceneManager.goToScene(nextSceneIdentifier);
-          
         } catch(Exception e) { 
           println(e.getMessage());
         }
